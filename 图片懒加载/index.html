@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.lazy-load{
+				display: block;
+				width: 90%;
+				margin: 0 auto;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="box">
+			<img data-src="./imgs/u=1141339595,1371712305&fm=253&fmt=auto&app=120&f=JPEG.webp"  alt="1" class="lazy-load" src="https://img.pic88.com/preview/2020/08/01/1596324521812272.jpg!s640">
+			<img data-src="./imgs/u=1215663945,2777624973&fm=253&fmt=auto&app=120&f=JPEG.webp"  alt="2" class="lazy-load" src="https://img.pic88.com/preview/2020/08/01/1596324521812272.jpg!s640">
+			<img data-src="./imgs/u=1215663945,2777624973&fm=253&fmt=auto&app=120&f=JPEG.webp"  alt="3" class="lazy-load" src="https://img.pic88.com/preview/2020/08/01/1596324521812272.jpg!s640">
+			<img data-src="./imgs/u=1464279625,3638714393&fm=253&fmt=auto&app=120&f=JPEG.webp"  alt="4" class="lazy-load" src="https://img.pic88.com/preview/2020/08/01/1596324521812272.jpg!s640">
+			<img data-src="./imgs/u=1609167665,799817195&fm=253&fmt=auto&app=120&f=JPEG.webp"  alt="5" class="lazy-load" src="https://img.pic88.com/preview/2020/08/01/1596324521812272.jpg!s640">
+			<img data-src="./imgs/u=1756360600,2315620575&fm=253&fmt=auto&app=120&f=JPEG.webp"  alt="6" class="lazy-load" src="https://img.pic88.com/preview/2020/08/01/1596324521812272.jpg!s640">
+			<img data-src="./imgs/u=1919797003,2836501319&fm=253&fmt=auto&app=120&f=JPEG.webp"  alt="7" class="lazy-load" src="https://img.pic88.com/preview/2020/08/01/1596324521812272.jpg!s640">
+			<img data-src="./imgs/u=2055532387,3573717960&fm=253&fmt=auto&app=120&f=JPEG.webp"  alt="8" class="lazy-load" src="https://img.pic88.com/preview/2020/08/01/1596324521812272.jpg!s640">
+		</div>
+	</body>
+
+	<script type="text/javascript">
+		//图片加载的函数
+		function imgonload() {
+			//把伪数组转化为真数组
+		    let imgs = [...document.querySelectorAll('.lazy-load')]
+		    for(let i=0; i<imgs.length; i++) {
+		      if(imgs[i].getBoundingClientRect().top < window.innerHeight) {
+		        //图片一旦有src就会加载出来，所以图片的路径不会放在src中，而是一个自定义的属性data-src中
+		        imgs[i].src = imgs[i].dataset.src;
+		      }
+		    }
+		  }
+		  //第一次页面加载的时候，让屏幕内的图片正常加载，而屏幕外的图片就使用loading图片代替
+		 window.onload = imgonload;
+		 //监听滚轮事件，
+		 let beAbleClick = true;
+		//设置节流，让500ms内只执行一次这个函数
+		window.addEventListener('scroll', () => {
+		//在设定的时间内，则不执行函数
+		  if (!beAbleClick) {
+			return;
+		  }
+		  //在设定的时间外，则开始计时，过500ms后执行
+		  setTimeout(() => {
+			imgonload();
+			//事件执行完成之后，才设置为true，才可以进行下一次事件的是触发
+			beAbleClick = true;
+		  }, 500);
+		  //设定的时间内将状态设为false，事件循环机制，开始计时期间，他执行变成false
+		  beAbleClick = false;
+		});
+
+		// 方法2  intersectionObserver
+		// document.addEventListener("DOMContentLoaded", function() {
+		//     let lazyImages = [...document.querySelectorAll('.lazy-load')];
+		//     if ("IntersectionObserver" in window) {
+		//         // 创建一个观察函数，以便待会调用   
+		//         let lazyImageObserver = new IntersectionObserver(function(entries, observer) {
+		//             entries.forEach(function(entry) {
+		//             if (entry.isIntersecting) {
+		//                let lazyImage = entry.target;
+		//                lazyImage.src = lazyImage.dataset.src;   // 替换 src URL
+		//                lazyImageObserver.unobserve(lazyImage);  // 解除观察
+		//             }
+		//             });
+		//         });
+		//         // 对所有需要懒加载的图片进行 “暗中观察”
+		//         lazyImages.forEach(function(lazyImage) {
+		//             lazyImageObserver.observe(lazyImage);
+		//         });
+		//      }else{
+		//            alert('您的浏览器不支持 IntersectionObserver');
+		//      }
+		// });
+	</script>
+</html>
+
+<!-- 网页可见区域宽： document.body.clientWidth;
+网页可见区域高： document.body.clientHeight;
+网页可见区域宽： document.body.offsetWidth (包括边线的宽);
+网页可见区域高： document.body.offsetHeight (包括边线的宽);
+网页正文全文宽： document.body.scrollWidth;
+网页正文全文高： document.body.scrollHeight;
+网页被卷去的高： document.body.scrollTop;
+网页被卷去的左： document.body.scrollLeft;
+网页正文部分上： window.screenTop;
+网页正文部分左： window.screenLeft;
+屏幕分辨率的高： window.screen.height;
+屏幕分辨率的宽： window.screen.width;
+屏幕可用工作区高度： window.screen.availHeight; -->

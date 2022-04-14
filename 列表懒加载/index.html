@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>列表懒加载</title>
+    <style>
+        .list {
+            background-color: rgb(116, 179, 238);
+        }
+        .list-item {
+            margin-top: 30px;
+            background-color: rgb(168, 119, 196);
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="list">
+        <div class="list-item">1</div>
+        <div class="list-item">2</div>
+        <div class="list-item">3</div>
+        <div class="list-item">3</div>
+        <div class="list-item">3</div>
+        <div class="list-item">3</div>
+        <div class="list-item">3</div>
+        <div class="list-item">3</div>
+        <div class="list-item">3</div>
+        <div class="list-item">3</div>
+        <div class="list-item">3</div>
+        <div class="list-item">3</div>
+        <div class="list-item">3</div>
+        <div class="list-item">3</div>
+        <div class="list-item">3</div>
+        <div class="list-item">3</div>
+        <div class="list-item">3</div>
+        <div class="list-item">3</div>
+        <div class="list-item">3</div>
+        <div class="list-item">3</div>
+        <div class="list-item">3</div>
+        <div class="list-item">3</div>
+        <div class="list-item">3</div>
+    </div>
+    <script>
+        var list = document.querySelector('.list')
+        var lists = [...document.querySelectorAll('.list-item')]
+        function load(){
+            if(lists[lists.length -1].getBoundingClientRect().top < window.innerHeight){
+                let item = document.createElement('div')
+                item.classList.add('list-item')
+                item.innerText = lists.length + 1
+                list.appendChild(item)
+            }else{
+                return
+            }
+        }
+        window.onload = load
+        window.addEventListener('scroll', () => {
+            load()
+        })
+    </script>
+</body>
+</html>
+<!-- scrollTop：滚动视窗的高度距离window顶部的距离，它会随着往上滚动而不断增加，初始值是0，它是一个变化的值
+
+clientHeight:它是一个定值，表示屏幕可视区域的高度；
+
+scrollHeight：页面不能滚动时是不存在的，body长度超过window时才会出现，所表示body所有元素的长度 -->
+
+<!-- scrollTop + clientHeight >= scrollHeight -->
+
+<!-- let clientHeight  = document.documentElement.clientHeight; //浏览器高度
+let scrollHeight = document.body.scrollHeight;
+let scrollTop = document.documentElement.scrollTop;
+
+let distance = 50;  //距离视窗还用50的时候，开始触发；
+
+if ((scrollTop + clientHeight) >= (scrollHeight - distance)) {
+    console.log("开始加载数据");
+} -->
