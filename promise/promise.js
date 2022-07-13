@@ -41,23 +41,23 @@ class Promise{
             if(this.status == PENDING){
                 this.value = value
                 this.status = FULFILLED
+                this.onResolvedCallbacks.forEach(callback => callback(value))
+
             }
-            
         }
         const reject = (reason) =>{
             if(this.status == PENDING){
                 this.reason = reason
                 this.status = REJECTED
+                this.onRejectedCallbacks.forEach(callback => callback(reason))
             }
             
         }
         try{
             executor(resolve,reject)
-
         }catch(e){ // 如果执行时发生了异常就将异常作为失败的原因
             reject(e)
         }
-        
     }
     then(onFulfilled,onRejected){
         // 链式调用的核心 就是处理x 和promise之间的关系

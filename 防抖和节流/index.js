@@ -14,6 +14,7 @@ function throttle(fn, delay) {
         },delay)
     }
 }
+
 function throttle2(fn, delay) {
     let start = Date.now();
     return function() {
